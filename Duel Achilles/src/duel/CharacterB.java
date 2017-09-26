@@ -1,26 +1,26 @@
 package duel;
 
 public class CharacterB implements Dueler{
-	private String name;
+	//private String name;
 	private int hp;
-}
+	private boolean isloaded;
+
 
 public CharacterB() {
-	
+	isloaded = false;
 }
 
 public void taunt() {
-	String taunt = "Are you ready";
+	String taunt = "You are going down!!";
 	System.out.println(taunt);
 }
 
 public String getName() {
-	name = "Achilles Ecos";
-	return name;
+	return "Achilles Ecos";
 }
 
 public void setStartingHP(int hp) {
-	System.out.println(hp);
+	this.hp = hp;
 }
 
 public int getHP() {
@@ -37,14 +37,35 @@ public boolean determineIfOpponentIsFair(Dueler d, int target) {
 	}
 }
 
-int getAction(object caller) {
-	System.out.println("....");
-	return true;
+public int getAction(Object caller) {
+	if(caller instanceof Duel) {
+		if(isloaded == false) {
+			if(Math.random() < .5) {
+				isloaded = true;
+				return Duel.LOADING;
+			}
+			else {
+				return Duel.GUARDING;
+			}
+		}
+		else{
+			if(Math.random()> .5) {
+			isloaded = false;
+			return Duel.SHOOTING;
+			}
+			else {
+				return Duel.GUARDING;
+			}
+		}
+	}
+	else {
+		return Duel.YEAH_RIGHT;
+	}
 }
 
-void hit(Object caller) {
-	if()
-	
-	
-	hp = hp - 10;
+public void hit(Object caller) {
+	if(caller instanceof Duel) {
+		hp = hp - 10;
+	}
+}
 }
